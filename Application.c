@@ -238,7 +238,10 @@ void deposit(char *User_Data_File,char *Name_Of_User)
         printf("\t\t\t\tYour final balance is: %f\n",Total_Balance_After_Execution);
         /*Updating balance in user account*/
         strcpy(Name_Of_User_Data_File,User_Data_File);
-        if(fopen(Name_Of_User_Data_File,"rb") != NULL)
+        
+        FILE *Transaction_File_Open;
+        Transaction_File_Open = fopen(Name_Of_User_Data_File,"rb");
+        if(Transaction_File_Open != NULL)
         {
           FILE *Open_User_Data_File;
           Open_User_Data_File = fopen(Name_Of_User_Data_File,"wb");
@@ -249,6 +252,7 @@ void deposit(char *User_Data_File,char *Name_Of_User)
         {
           printf("\t\t\t\tSorry! the name of data your searched for is not available\n");
         }
+        fclose(Transaction_File_Open);
       
         Exit_Deposit_Transaction_Process:
         printf("\t\t\t\tDo you want to deposit again?\n");
@@ -300,7 +304,10 @@ void create()
       break;
     }
     strcat(User_Name,".dat");
-    if(fopen(User_Name,"rb")==NULL)
+
+    FILE *User_Data_File_Create_Existence_Check_And_Execute;
+    User_Data_File_Create_Existence_Check_And_Execute = fopen(User_Name,"rb");
+    if(User_Data_File_Create_Existence_Check_And_Execute==NULL)
     {
       FILE *Create_User_Data_File;
       Create_User_Data_File = fopen(User_Name,"wb");
@@ -316,6 +323,7 @@ void create()
     {
       printf("\t\t\t\tSorry! username already exists\n");
     }
+    fclose(User_Data_File_Create_Existence_Check_And_Execute);
 
     printf("\t\t\t\tDo you want to again create another account?\n");
     printf("\t\t\t [y/n]->");
